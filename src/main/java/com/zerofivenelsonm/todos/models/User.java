@@ -33,7 +33,7 @@ public class User {
     @ManyToMany
     @JoinTable(name = "userroles",
             joinColumns = @JoinColumn(name = "userid"),
-            inverseJoinColumns = @JoinColumn(name = "todoid")
+            inverseJoinColumns = @JoinColumn(name = "roleid")
     )
     @JsonIgnoreProperties("users")
     List<Role> roles = new ArrayList<>();
