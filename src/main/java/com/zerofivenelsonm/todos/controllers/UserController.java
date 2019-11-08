@@ -76,7 +76,8 @@ public class UserController {
     @PostMapping(value = "/todo/{userid}", consumes = {"application/json"})
     public ResponseEntity<?> addNewTodo(@Valid @RequestBody Todo newTodo, @PathVariable long userid) {
 
-        return null;
+        userService.addTodo(newTodo, userid);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**

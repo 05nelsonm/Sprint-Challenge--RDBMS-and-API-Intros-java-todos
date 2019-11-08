@@ -3,6 +3,7 @@ package com.zerofivenelsonm.todos.services;
 import com.zerofivenelsonm.todos.models.Role;
 import com.zerofivenelsonm.todos.models.Todo;
 import com.zerofivenelsonm.todos.models.User;
+import com.zerofivenelsonm.todos.repositories.TodoRepository;
 import com.zerofivenelsonm.todos.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,13 @@ import java.util.List;
 public class UserServiceImplementation implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private RoleService roleService;
 
     @Autowired
-    private RoleService roleService;
+    private TodoRepository todoRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<User> findAll() {
@@ -60,6 +64,20 @@ public class UserServiceImplementation implements UserService {
         }
 
         return userRepository.save(newUser);
+    }
+
+    @Override
+    public Todo addTodo(Todo todo, long userid) {
+
+        Todo newTodo = new Todo();
+
+        User existingUser = findUserById(userid);
+
+        newTodo.setDescription(todo.getDescription());
+        newTodo.setDatestarted(todo.getDatestarted());
+        newTodo.setUser(existingUser);
+
+        return todoRepository.save(newTodo);
     }
 
     @Transactional
