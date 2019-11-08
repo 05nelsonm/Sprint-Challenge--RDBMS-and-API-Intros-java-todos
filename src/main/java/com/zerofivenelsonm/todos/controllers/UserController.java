@@ -2,14 +2,24 @@ package com.zerofivenelsonm.todos.controllers;
 
 import com.zerofivenelsonm.todos.models.Todo;
 import com.zerofivenelsonm.todos.models.User;
+import com.zerofivenelsonm.todos.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
+    @Autowired
+    private UserService userService;
 
     /**
      * http://localhost:2019/users/users
@@ -17,8 +27,9 @@ public class UserController {
      * */
     @GetMapping(value = "/users", produces = {"application/json"})
     public ResponseEntity<?> getAllUsers() {
-        
-        return null;
+
+        List<User> allUsers = userService.findAll();
+        return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
 
     /**
@@ -30,7 +41,8 @@ public class UserController {
     @GetMapping(value = "/user/{userid}", produces = {"application/json"})
     public ResponseEntity<?> findUserById(@PathVariable long userid) {
 
-        return null;
+        User theUser = userService.findUserById(userid);
+        return new ResponseEntity<>(theUser, HttpStatus.OK);
     }
 
     /**
@@ -42,7 +54,16 @@ public class UserController {
     @PostMapping(value = "/user", consumes = {"application/json"})
     public ResponseEntity<?> addNewUser(@Valid @RequestBody User newUser) {
 
-        return null;
+        newUser = userService.save(newUser);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        URI newUserURI = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{userid}")
+                .buildAndExpand(newUser.getUserid())
+                .toUri();
+        responseHeaders.setLocation(newUserURI);
+
+        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
     /**
@@ -67,6 +88,7 @@ public class UserController {
     @DeleteMapping("/userid/{userid}")
     public ResponseEntity<?> deleteUser(@PathVariable long userid) {
 
-        return null;
+        userService.delete(userid);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
