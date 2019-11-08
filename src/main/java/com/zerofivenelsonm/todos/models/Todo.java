@@ -24,10 +24,10 @@ public class Todo {
     public Todo() {
     }
 
-    public Todo(String description, Date datestarted, boolean completed) {
+    public Todo(String description, Date datestarted, User user) {
         this.description = description;
         this.datestarted = datestarted;
-        this.completed = completed;
+        this.user = user;
     }
 
     public long getTodoid() {

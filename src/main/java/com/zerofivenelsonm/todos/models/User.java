@@ -17,11 +17,11 @@ public class User {
     @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(unique = true, nullable = false)
-    private String primaryemail;
-
     @Column(nullable = false)
     private String password;
+
+    @Column(unique = true, nullable = false)
+    private String primaryemail;
 
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
@@ -41,10 +41,10 @@ public class User {
     public User() {
     }
 
-    public User(String username, String primaryemail, String password) {
+    public User(String username, String password, String primaryemail) {
         this.username = username;
-        this.primaryemail = primaryemail;
         this.password = password;
+        this.primaryemail = primaryemail;
     }
 
     public long getUserid() {

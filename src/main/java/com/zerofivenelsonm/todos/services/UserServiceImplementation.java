@@ -54,7 +54,7 @@ public class UserServiceImplementation implements UserService {
         }
 
         for (Todo t : user.getTodos()) {
-            Todo newTodo = new Todo(t.getDescription(), t.getDatestarted(), t.isCompleted());
+            Todo newTodo = new Todo(t.getDescription(), t.getDatestarted(), newUser);
 
             newUser.getTodos().add(newTodo);
         }
