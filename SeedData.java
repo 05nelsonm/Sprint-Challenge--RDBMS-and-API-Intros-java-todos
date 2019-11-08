@@ -1,10 +1,10 @@
-package com.lambdaschool.todo;
+package com.zerofivenelsonm.todos;
 
-import com.lambdaschool.todo.models.Role;
-import com.lambdaschool.todo.models.Todo;
-import com.lambdaschool.todo.models.User;
-import com.lambdaschool.todo.services.RoleService;
-import com.lambdaschool.todo.services.UserService;
+import com.zerofivenelsonm.todos.models.Role;
+import com.zerofivenelsonm.todos.models.Todo;
+import com.zerofivenelsonm.todos.models.User;
+import com.zerofivenelsonm.todos.services.RoleService;
+import com.zerofivenelsonm.todos.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
