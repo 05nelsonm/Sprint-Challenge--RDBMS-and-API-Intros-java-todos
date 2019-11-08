@@ -1,6 +1,8 @@
 package com.zerofivenelsonm.todos.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "roles")
@@ -12,4 +14,7 @@ public class Role {
 
     @Column(unique = true, nullable = false)
     private String rolename;
+
+    @ManyToMany(mappedBy = "userroles")
+    private List<User> users = new ArrayList<>();
 }
